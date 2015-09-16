@@ -14,7 +14,9 @@ public class Main {
 		File originalFile = new File("students.csv");
 		Scanner inputFile = new Scanner(originalFile);
 		ArrayList<Student> students = new ArrayList<>();
-
+		ArrayList<Student> picked = new ArrayList<>();
+		
+		
 		Random r = new Random();
 
 		while (inputFile.hasNextLine()) {
@@ -24,7 +26,8 @@ public class Main {
 		}
 		inputFile.close();
 		boolean yes = true;
-		while (yes) {
+		while (yes) 
+		{
 			System.out.println("Do you want to pick a student (y/n)");
 			String input = keyboard.nextLine();
 
@@ -44,12 +47,22 @@ public class Main {
 							+ name.getName() + " has " + name.points
 							+ " point(s)!!");
 				}
+				picked.add(students.remove(n));
 			} else if (input.equalsIgnoreCase("n")) {
 				yes = false;
 				System.out.println("Exits");
 			} else {
 				System.out.print("Invalid choice. ");
 			}
+			if(students.size() == 0)
+			{
+				students.addAll(picked);
+				picked.clear();
+			}
+		}
+		while (picked.size() != 0)
+		{
+			students.add(picked.remove(0));
 		}
 
 		PrintWriter write = new PrintWriter(originalFile);
